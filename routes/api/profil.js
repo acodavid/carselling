@@ -12,11 +12,6 @@ const Profil = require('../../models/Profil');
 //Ucitavanje Korisnik modela
 const Korisnik = require('../../models/Korisnik');
 
-// @route GET api/profil/test
-// @desc Testna profil ruta
-// @access public
-router.get('/test', (req, res) => res.json({ poruka: "Profil radi" }));
-
 // @route GET api/profil
 // @desc Profil logovanog korisnika
 // @access private

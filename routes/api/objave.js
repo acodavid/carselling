@@ -10,11 +10,6 @@ const Profil = require('../../models/Profil');
 //validacija
 const validacijaObjaveInputa = require('../../validation/objava');
 
-// @route GET api/objave/test
-// @desc Testna objave ruta
-// @access public
-router.get('/test', (req, res) => res.json({ poruka: "Objave rade" }));
-
 // @route GET api/objave
 // @desc Uzimanje svih objava
 // @access public

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROFILE, GET_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE_BY_ID, SET_CURRENT_USER } from './types';
+import { GET_PROFILE, GET_ERRORS, CLEAR_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE_BY_ID, SET_CURRENT_USER } from './types';
 
 export const getCurrentProfile = () => dispatch => {
     axios.get('/api/profil')
@@ -17,6 +17,12 @@ export const getCurrentProfile = () => dispatch => {
         });
 };
 
+export const clearErrors = () => {
+    return {
+        type: CLEAR_ERRORS
+    };
+};
+
 export const clearProfile = () => {
     return {
         type: CLEAR_CURRENT_PROFILE
@@ -24,6 +30,7 @@ export const clearProfile = () => {
 };
 
 export const createProfile = (profile, history) => dispatch => {
+    dispatch(clearErrors());
     axios.post('/api/profil', profile)
         .then(res => {
             history.push('/profile');

@@ -50,6 +50,7 @@ class SingleCar extends Component {
                         <div className="row mb-3">
                             <div className="col-md-4">
 
+                                <Link to="/cars" className="btn btn-secondary btn-block mb-3"><i className="fas fa-backward"></i>---Nazad ka automobilima</Link>
 
                                 {prazan(car.slika && car.slika.imageName) ? (
                                     <img src={DefaultCar} alt="" />
