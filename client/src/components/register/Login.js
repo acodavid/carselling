@@ -10,7 +10,7 @@ class Login extends Component {
         super();
         this.state = {
             email: '',
-            lozinka: '',
+            password: '',
             errors: {}
         };
 
@@ -24,7 +24,9 @@ class Login extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         if (nextProps.auth.isLogged) {
             this.props.history.push('/profile');
@@ -42,12 +44,12 @@ class Login extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const prijavljeniKorisnik = {
+        const loggedUser = {
             email: this.state.email,
-            lozinka: this.state.lozinka,
+            password: this.state.password,
         }
 
-        this.props.loginUser(prijavljeniKorisnik);
+        this.props.loginUser(loggedUser);
     }
 
     render() {
@@ -59,7 +61,7 @@ class Login extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 m-auto">
-                            <h3 className="mt-5 mb-3 text-center">Prijava</h3>
+                            <h3 className="mt-5 mb-3 text-center">Login</h3>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input value={this.state.email} onChange={this.onChange} type="email" className={classnames('form-control form-control-lg mb-1', {
@@ -68,12 +70,12 @@ class Login extends Component {
                                     {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input value={this.state.lozinka} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
-                                        'is-invalid': errors.lozinka
-                                    })} name="lozinka" id="lozinka" placeholder="Lozinka" />
-                                    {errors.lozinka && (<div className="invalid-feedback">{errors.lozinka}</div>)}
+                                    <input value={this.state.password} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
+                                        'is-invalid': errors.password
+                                    })} name="password" id="password" placeholder="Password" />
+                                    {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                                 </div>
-                                <input type="submit" value="Prijavi se" className="btn btn-primary btn-block mb-5" />
+                                <input type="submit" value="Login" className="btn btn-primary btn-block mb-5" />
                             </form>
                         </div>
                     </div>
@@ -90,7 +92,7 @@ Login.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authorization,
+    auth: state.auth,
     errors: state.errors
 });
 

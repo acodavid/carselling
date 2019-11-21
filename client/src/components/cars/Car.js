@@ -12,18 +12,18 @@ class Car extends Component {
         return (
             <div className="card card-body mb-3">
                 <div className="card-header">
-                    <h3>{cars.proizvodjac}</h3>
+                    <h3>{cars.brand}</h3>
                     <h5>{cars.model}</h5>
                 </div>
                 <div className="card-body mb-3">
                     <div className="row">
-                        {cars.slika.imageName === '' ? (
+                        {cars.picture.imageName === '' ? (
                             <div className="col-md-5">
                                 <img src={DefaultCar} className="img-fluid mb-3" alt="" />
                                 <br />
                             </div>) : (
                                 <div className="col-md-5">
-                                    <img src={cars.slika.imageData} className="img-fluid mb-3" alt="" />
+                                    <img src={cars.picture.imageData} className="img-fluid mb-3" alt="" />
                                     <br />
                                 </div>
                             )}
@@ -32,31 +32,31 @@ class Car extends Component {
                             <table className="table table-hover">
                                 <tbody>
                                     <tr className="table-light">
-                                        <td>Godište:</td>
-                                        <td>{cars.godiste}</td>
+                                        <td>Year:</td>
+                                        <td>{cars.year}</td>
                                     </tr>
                                     <tr className="table-secondary">
-                                        <td>Stanje:</td>
-                                        <td>{cars.stanje}</td>
+                                        <td>Condition:</td>
+                                        <td>{cars.condition}</td>
                                     </tr>
                                     <tr className="table-light">
-                                        <td>Gorivo:</td>
-                                        <td>{cars.gorivo}</td>
+                                        <td>Fuel type:</td>
+                                        <td>{cars.fuelType}</td>
                                     </tr>
                                 </tbody>
                             </table>
                             <br />
                             <br />
-                            {cars.cijena === 'Po dogovoru' ? (
-                                <span className="badge badge-primary mt-5 mr-2" style={{ float: 'right', fontSize: '23px' }}>Cijena: {cars.cijena} </span>
+                            {cars.prize === 'Price negotiable' ? (
+                                <span className="badge badge-primary mt-5 mr-2" style={{ float: 'right', fontSize: '23px' }}>Prize: {cars.prize} </span>
                             ) : (
-                                    <span className="badge badge-primary mt-5 mr-2" style={{ float: 'right', fontSize: '23px' }}>Cijena: {cars.cijena} KM</span>
+                                    <span className="badge badge-primary mt-5 mr-2" style={{ float: 'right', fontSize: '23px' }}>Prize: {cars.prize} €</span>
                                 )}
                         </div>
                     </div>
                 </div>
                 <div className="card-footer">
-                    <Link to={`/car/${cars._id}`} className="btn btn-secondary btn-block">Prikaži detaljno</Link>
+                    <Link to={`/car/${cars._id}`} className="btn btn-secondary btn-block">Show other details</Link>
                 </div>
             </div>
 

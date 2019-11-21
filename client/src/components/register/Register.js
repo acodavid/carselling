@@ -10,10 +10,10 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            ime: '',
+            name: '',
             email: '',
-            lozinka: '',
-            lozinka2: '',
+            password: '',
+            password2: '',
             errors: {}
         };
 
@@ -28,7 +28,7 @@ class Register extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
         }
@@ -41,14 +41,14 @@ class Register extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const noviKorisnik = {
-            ime: this.state.ime,
+        const newUser = {
+            name: this.state.name,
             email: this.state.email,
-            lozinka: this.state.lozinka,
-            lozinka2: this.state.lozinka2
+            password: this.state.password,
+            password2: this.state.password2
         }
 
-        this.props.registerUser(noviKorisnik, this.props.history);
+        this.props.registerUser(newUser, this.props.history);
 
     }
 
@@ -61,13 +61,13 @@ class Register extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 m-auto">
-                            <h3 className="mt-5 mb-3 text-center">Registracija</h3>
+                            <h3 className="mt-5 mb-3 text-center">Registration</h3>
                             <form onSubmit={this.onSubmit} noValidate>
                                 <div className="form-group">
-                                    <input value={this.state.ime} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', {
-                                        'is-invalid': errors.ime
-                                    })} name="ime" id="ime" placeholder="Ime" />
-                                    {errors.ime && (<div className="invalid-feedback">{errors.ime}</div>)}
+                                    <input value={this.state.name} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', {
+                                        'is-invalid': errors.name
+                                    })} name="name" id="name" placeholder="Name" />
+                                    {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
                                 </div>
                                 <div className="form-group">
                                     <input value={this.state.email} onChange={this.onChange} type="email" className={classnames('form-control form-control-lg mb-1', {
@@ -76,18 +76,18 @@ class Register extends Component {
                                     {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input value={this.state.lozinka} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
-                                        'is-invalid': errors.lozinka
-                                    })} name="lozinka" id="lozinka" placeholder="Lozinka" />
-                                    {errors.lozinka && (<div className="invalid-feedback">{errors.lozinka}</div>)}
+                                    <input value={this.state.password} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
+                                        'is-invalid': errors.password
+                                    })} name="password" id="password" placeholder="Password" />
+                                    {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input value={this.state.lozinka2} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
-                                        'is-invalid': errors.lozinka2
-                                    })} name="lozinka2" id="lozinka2" placeholder="Potvrdite lozinku" />
-                                    {errors.lozinka2 && (<div className="invalid-feedback">{errors.lozinka2}</div>)}
+                                    <input value={this.state.password2} onChange={this.onChange} type="password" className={classnames('form-control form-control-lg mb-1', {
+                                        'is-invalid': errors.password2
+                                    })} name="password2" id="password2" placeholder="Confirm Password" />
+                                    {errors.password2 && (<div className="invalid-feedback">{errors.password2}</div>)}
                                 </div>
-                                <input type="submit" value="Registruj se" className="btn btn-primary btn-block mb-5" />
+                                <input type="submit" value="Register" className="btn btn-primary btn-block mb-5" />
                             </form>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ Register.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authorization,
+    auth: state.auth,
     errors: state.errors
 });
 

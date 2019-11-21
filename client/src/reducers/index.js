@@ -3,10 +3,12 @@ import authReducer from './authReducer';
 import errorReducer from './errorReducer';
 import profileReducer from './profileReducer';
 import carReducer from './carReducer';
+import pictureReducer from './pictureReducer'
 
 export default combineReducers({
-    authorization: authReducer,
+    auth: authReducer,
     errors: errorReducer,
     profile: profileReducer,
-    cars: carReducer
+    cars: carReducer,
+    pictures: pictureReducer
 });

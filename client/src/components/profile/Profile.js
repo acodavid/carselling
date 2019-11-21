@@ -2,30 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCurrentProfile, deleteProfile } from '../../actions/profileActions';
-import prazan from '../../validation/prazan';
+import { getCurrentProfile, deleteProfile, clearProfile } from '../../actions/profileActions';
+import isEmpty from '../../validation/isEmpty';
 import fidgetspinner from '../../img/fidgetspinner.gif';
 
 class Profile extends Component {
 
     componentDidMount() {
+        this.props.clearProfile();
         this.props.getCurrentProfile();
     }
 
     onDeleteClick(e) {
+        e.preventDefault();
+
         this.props.deleteProfile();
     }
 
     render() {
 
-        const { korisnik } = this.props.auth;
+        const { user } = this.props.auth;
         const { profile } = this.props.profile;
 
 
         let content;
 
         if (profile === null) {
-            content = <img className="m-auto" style={{ width: '300px', display: 'block' }} src={fidgetspinner} alt="Ucitavanje" />
+            content = <img className="m-auto" style={{ width: '300px', display: 'block' }} src={fidgetspinner} alt="Loading" />
         } else {
             if (Object.keys(profile).length > 0) {
                 content = (
@@ -33,59 +36,60 @@ class Profile extends Component {
                         <table className="table table-hover">
                             <tbody>
                                 <tr className="table-light">
-                                    <td>Ime:</td>
-                                    <td>{profile.korisnik.ime}</td>
+                                    <td>Name:</td>
+                                    <td>{profile.user.name}</td>
                                 </tr>
                                 <tr className="table-secondary">
-                                    <td>Broj telefona:</td>
-                                    <td>{profile.brojTelefona}</td>
+                                    <td>Phone number:</td>
+                                    <td>{profile.phoneNumber}</td>
                                 </tr>
                                 <tr className="table-light">
-                                    <td>Adresa:</td>
-                                    <td>{profile.adresa}</td>
+                                    <td>Address:</td>
+                                    <td>{profile.address}</td>
                                 </tr>
                                 <tr className="table-secondary">
-                                    <td>Korisnicko ime:</td>
-                                    <td>{profile.korisnickoIme}</td>
+                                    <td>Username:</td>
+                                    <td>{profile.username}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        {!prazan(profile.linkovi) ? (
-                            <p className="text-muted text-center mb-2">Linkovi drustvenih mreza:</p>
+                        {!isEmpty(profile.links) ? (
+                            <p className="text-muted text-center mb-2">Social network links:</p>
                         ) : null}
 
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-9 m-auto">
-                                    {prazan(profile.linkovi && profile.linkovi.facebook) ? null : (
-                                        <a className="text-white p-2 m-auto" href={profile.linkovi.facebook} target="_blank" rel="noopener noreferrer">
+                                    {isEmpty(profile.links && profile.links.facebook) ? null : (
+                                        <a className="text-white p-2 m-auto" href={profile.links.facebook} target="_blank" rel="noopener noreferrer">
                                             <i className="fab fa-facebook fa-2x" /> Facebook
                                              </a>
                                     )}
-                                    {prazan(profile.linkovi && profile.linkovi.instagram) ? null : (
-                                        <a className="text-white p-2 m-auto" href={profile.linkovi.instagram} target="_blank" rel="noopener noreferrer">
+                                    {isEmpty(profile.links && profile.links.instagram) ? null : (
+                                        <a className="text-white p-2 m-auto" href={profile.links.instagram} target="_blank" rel="noopener noreferrer">
                                             <i className="fab fa-instagram fa-2x" /> Instagram
                                             </a>
                                     )}
-                                    {prazan(profile.linkovi && profile.linkovi.twitter) ? null : (
-                                        <a className="text-white p-2 m-auto" href={profile.linkovi.twitter} target="_blank" rel="noopener noreferrer">
+                                    {isEmpty(profile.links && profile.links.twitter) ? null : (
+                                        <a className="text-white p-2 m-auto" href={profile.links.twitter} target="_blank" rel="noopener noreferrer">
                                             <i className="fab fa-twitter fa-2x" /> Twitter
                                             </a>
                                     )}
                                 </div>
 
                             </div>
-                            <Link to="/edit/profile" className="btn btn-primary btn-block mt-3 mb-2">Izmeni</Link>
-                            <button type="button" className="btn btn-danger btn-block mb-5" onClick={this.onDeleteClick.bind(this)}>Izbriši profil i nalog</button>
+                            <Link to="/edit/profile" className="btn btn-primary btn-block mt-3 mb-2">Edit</Link>
+                            <button type="button" className="btn btn-danger btn-block mb-2" onClick={this.onDeleteClick.bind(this)}>Delete profile and account</button>
+                            <Link to="/cars/my-cars" className="btn btn-secondary btn-block mb-3">My cars</Link>
                         </div>
                     </div>
                 )
             } else {
                 content = (
                     <div className="container">
-                        <p className="lead text-center mt-5">Dobrodošli na našu stranicu, {korisnik.ime}</p>
-                        <p className="lead text-center">Nemate profil, kliknite i popunite ga vašim podacima</p>
-                        <Link to="/create/profile" className="btn btn-primary btn-block mb-5">Popuni podatke</Link>
+                        <p className="lead text-center mt-5">Welcome to our website, {user.ime}</p>
+                        <p className="lead text-center">You don't have a profile? Click here and fill the form with your details</p>
+                        <Link to="/create/profile" className="btn btn-primary btn-block mb-5">Create profile</Link>
                     </div>
                 );
             }
@@ -109,14 +113,15 @@ Profile.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     deleteProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    clearProfile: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     profile: state.profile,
-    auth: state.authorization
+    auth: state.auth
 })
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteProfile })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, deleteProfile, clearProfile })(Profile);
 
 

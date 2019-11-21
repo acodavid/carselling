@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 
 import classnames from 'classnames';
-import prazan from '../../validation/prazan';
+import isEmpty from '../../validation/isEmpty';
 
 class EditProfile extends Component {
 
     constructor() {
         super();
         this.state = {
-            korisnickoIme: '',
-            brojTelefona: '',
-            adresa: '',
+            username: '',
+            phoneNumber: '',
+            address: '',
             facebook: '',
             instagram: '',
             twitter: '',
@@ -40,15 +40,15 @@ class EditProfile extends Component {
             const profile = nextProps.profile.profile;
 
             //not required
-            profile.linkovi = !prazan(profile.linkovi) ? profile.linkovi : {};
-            profile.facebook = !prazan(profile.linkovi.facebook) ? profile.linkovi.facebook : '';
-            profile.instagram = !prazan(profile.linkovi.instagram) ? profile.linkovi.instagram : '';
-            profile.twitter = !prazan(profile.linkovi.twitter) ? profile.linkovi.twitter : '';
+            profile.links = !isEmpty(profile.links) ? profile.links : {};
+            profile.facebook = !isEmpty(profile.links.facebook) ? profile.links.facebook : '';
+            profile.instagram = !isEmpty(profile.links.instagram) ? profile.links.instagram : '';
+            profile.twitter = !isEmpty(profile.links.twitter) ? profile.links.twitter : '';
 
             this.setState({
-                korisnickoIme: profile.korisnickoIme,
-                brojTelefona: profile.brojTelefona,
-                adresa: profile.adresa,
+                username: profile.username,
+                phoneNumber: profile.phoneNumber,
+                address: profile.address,
                 facebook: profile.facebook,
                 instagram: profile.instagram,
                 twitter: profile.twitter
@@ -65,9 +65,9 @@ class EditProfile extends Component {
         e.preventDefault();
 
         const noviProfil = {
-            korisnickoIme: this.state.korisnickoIme,
-            brojTelefona: this.state.brojTelefona,
-            adresa: this.state.adresa,
+            username: this.state.username,
+            phoneNumber: this.state.phoneNumber,
+            address: this.state.address,
             facebook: this.state.facebook,
             instagram: this.state.instagram,
             twitter: this.state.twitter
@@ -96,21 +96,21 @@ class EditProfile extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 m-auto">
-                            <h3 className="text-center mb-3">Izmenite profil</h3>
+                            <h3 className="text-center mb-3">Edit profile</h3>
                             <form onSubmit={this.onSubmit} noValidate>
                                 <div className="form-group">
-                                    <input value={this.state.korisnickoIme} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.korisnickoIme })} name="korisnickoIme" id="korisnickoIme" placeholder="Korisnicko ime" />
-                                    {errors.korisnickoIme && (<div className="invalid-feedback">{errors.korisnickoIme}</div>)}
+                                    <input value={this.state.username} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.username })} name="username" id="username" placeholder="Username" />
+                                    {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input value={this.state.brojTelefona} onChange={this.onChange} type="number" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.brojTelefona })} name="brojTelefona" id="brojTelefona" placeholder="Broj telefona" />
-                                    {errors.brojTelefona && (<div className="invalid-feedback">{errors.brojTelefona}</div>)}
+                                    <input value={this.state.phoneNumber} onChange={this.onChange} type="number" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.phoneNumber })} name="phoneNumber" id="phoneNumber" placeholder="Phone number" />
+                                    {errors.phoneNumber && (<div className="invalid-feedback">{errors.phoneNumber}</div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input value={this.state.adresa} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.adresa })} name="adresa" id="adresa" placeholder="Adresa" />
-                                    {errors.adresa && (<div className="invalid-feedback">{errors.adresa}</div>)}
+                                    <input value={this.state.address} onChange={this.onChange} type="text" className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.address })} name="address" id="address" placeholder="Address" />
+                                    {errors.address && (<div className="invalid-feedback">{errors.address}</div>)}
                                 </div>
-                                <button onClick={this.onClick} className="btn btn-secondary btn-block mb-3">+ Linkovi drustvenih mreza (opciono)</button>
+                                <button onClick={this.onClick} className="btn btn-secondary btn-block mb-3">+ Social network links (optional)</button>
                                 {showLinks ? (
                                     <div className="social-links">
                                         <div className="form-group">
@@ -127,7 +127,7 @@ class EditProfile extends Component {
                                         </div>
                                     </div>
                                 ) : null}
-                                <button onSubmit={this.onSubmit} className="btn btn-primary btn-block">Sacuvaj izmjene</button>
+                                <button onSubmit={this.onSubmit} className="btn btn-primary btn-block">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -137,7 +137,6 @@ class EditProfile extends Component {
     }
 }
 EditProfile.propTypes = {
-    auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
     createProfile: PropTypes.func.isRequired,

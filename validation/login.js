@@ -1,30 +1,30 @@
 const Validator = require('validator');
-const prazan = require('./prazan');
+const isEmpty = require('./isEmpty');
 
-module.exports = function validacijaLoginInputa(podatak) {
+module.exports = function validationLogin(data) {
     let errors = {};
 
-    podatak.email = !prazan(podatak.email) ? podatak.email : '';
-    podatak.lozinka = !prazan(podatak.lozinka) ? podatak.lozinka : '';
+    data.email = !isEmpty(data.email) ? data.email : '';
+    data.password = !isEmpty(data.password) ? data.password : '';
 
-    if (!Validator.isEmail(podatak.email)) {
-        errors.email = 'Email nije validan';
+    if (!Validator.isEmail(data.email)) {
+        errors.email = 'Email is not valid';
     }
 
-    if (Validator.isEmpty(podatak.email)) {
-        errors.email = 'Polje za email je obavezno';
+    if (Validator.isEmpty(data.email)) {
+        errors.email = 'Email is required';
     }
 
-    if (!Validator.isLength(podatak.lozinka, { min: 6, max: 30 })) {
-        errors.lozinka = 'Lozinka mora biti između 6 i 30 karaktera';
+    if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+        errors.password = 'Password must be between 6 and 30 characters';
     }
 
-    if (Validator.isEmpty(podatak.lozinka)) {
-        errors.lozinka = 'Polje za lozinku je obavezno';
+    if (Validator.isEmpty(data.password)) {
+        errors.password = 'Password is required';
     }
 
     return {
         errors,
-        isValid: prazan(errors)
+        isValid: isEmpty(errors)
     };
 };

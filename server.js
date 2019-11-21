@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-const korisnici = require('./routes/api/korisnici');
-const profil = require('./routes/api/profil');
-const objave = require('./routes/api/objave');
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const cars = require('./routes/api/cars');
+const pictures = require('./routes/api/pictures')
 const path = require('path');
 
 const app = express();
@@ -20,7 +21,7 @@ const db = require('./config/keys').mongoURI;
 // Konektovanje prema MongoDB
 mongoose
     .connect(db, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB je konektovan'))
+    .then(() => console.log('MongoDB is connected'))
     .catch(err => console.log(err));
 
 //pasport middleware
@@ -30,9 +31,10 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // use Routes
-app.use('/api/korisnici', korisnici);
-app.use('/api/profil', profil);
-app.use('/api/objave', objave);
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+app.use('/api/cars', cars);
+app.use('/api/pictures', pictures);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
@@ -44,5 +46,5 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server je pokrenut na portu ${port}`));
+app.listen(port, () => console.log(`Server started at port ${port}`));
 

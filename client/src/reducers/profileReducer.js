@@ -1,7 +1,8 @@
-import { GET_PROFILE, CLEAR_CURRENT_PROFILE, GET_PROFILE_BY_ID } from '../actions/types'
+import { GET_PROFILE, CLEAR_CURRENT_PROFILE, GET_PROFILE_BY_ID, GET_PROFILE_BY_USERNAME, CLEAR_SINGLE_PROFILE } from '../actions/types'
 
 const initialState = {
-    profile: null
+    profile: null,
+    singleProfile: null
 }
 
 export default function (state = initialState, action) {
@@ -16,10 +17,20 @@ export default function (state = initialState, action) {
                 ...state,
                 profile: null
             }
+        case CLEAR_SINGLE_PROFILE:
+            return {
+                ...state,
+                singleProfile: null
+            }
         case GET_PROFILE_BY_ID:
             return {
                 ...state,
-                profile: action.payload
+                singleProfile: action.payload
+            }
+        case GET_PROFILE_BY_USERNAME:
+            return {
+                ...state,
+                singleProfile: action.payload
             }
         default:
             return state;

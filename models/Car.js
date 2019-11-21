@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Kreiranje seme
-const ObjavaSchema = new Schema({
-    korisnik: {
+const CarSchema = new Schema({
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'korisnici'
+        ref: 'users'
     },
-    cijena: {
+    prize: {
         type: String
     },
-    proizvodjac: {
+    brand: {
         type: String,
         required: true
     },
@@ -18,51 +17,51 @@ const ObjavaSchema = new Schema({
         type: String,
         required: true
     },
-    godiste: {
+    year: {
         type: String,
         required: true
     },
-    kilometraza: {
+    kilometrage: {
         type: String,
         required: true
     },
-    kubikaza: {
+    cubic: {
         type: String,
         required: true
     },
-    kw: {
+    kilowatts: {
         type: String,
         required: true
     },
-    transmisija: {
+    transmission: {
         type: String,
         required: true
     },
-    gorivo: {
+    fuelType: {
         type: String,
         required: true
     },
-    brojvrata: {
+    doors: {
         type: String,
         required: true
     },
-    boja: {
+    colour: {
         type: String,
         required: true
     },
-    stanje: {
+    condition: {
         type: String,
         required: true
     },
-    detalji: {
+    details: {
         type: String,
         required: true
     },
-    datum: {
+    date: {
         type: Date,
         default: Date.now
     },
-    slika: {
+    picture: {
         imageName: {
             type: String
         },
@@ -70,20 +69,20 @@ const ObjavaSchema = new Schema({
             type: String
         }
     },
-    pitanja: [
+    questions: [
         {
-            korisnik: {
+            user: {
                 type: Schema.Types.ObjectId,
                 ref: 'korisnici'
             },
-            tekst: {
+            text: {
                 type: String,
                 required: true
             },
-            ime: {
+            name: {
                 type: String
             },
-            datum: {
+            date: {
                 type: Date,
                 default: Date.now
             }
@@ -91,4 +90,4 @@ const ObjavaSchema = new Schema({
     ]
 });
 
-module.exports = Objava = mongoose.model('objave', ObjavaSchema);
+module.exports = Car = mongoose.model('cars', CarSchema);

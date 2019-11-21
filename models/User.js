@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Kreiranje seme
-const KorisnikSchema = new Schema({
-    ime: {
+const UserSchema = new Schema({
+    name: {
         type: String,
         required: true
     },
@@ -11,14 +10,14 @@ const KorisnikSchema = new Schema({
         type: String,
         required: true
     },
-    lozinka: {
+    password: {
         type: String,
         required: true
     },
-    datum: {
+    date: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = Korisnik = mongoose.model('korisnici', KorisnikSchema);
+module.exports = User = mongoose.model('users', UserSchema);

@@ -1,11 +1,11 @@
-import prazan from '../validation/prazan';
+import isEmpty from '../validation/isEmpty';
 
 import { SET_CURRENT_USER } from '../actions/types';
 
 
 const initialState = {
     isLogged: false,
-    korisnik: {}
+    user: {}
 }
 
 export default function (state = initialState, action) {
@@ -13,8 +13,8 @@ export default function (state = initialState, action) {
         case SET_CURRENT_USER:
             return {
                 ...state,
-                isLogged: !prazan(action.payload),
-                korisnik: action.payload
+                isLogged: !isEmpty(action.payload),
+                user: action.payload
             }
         default:
             return state;

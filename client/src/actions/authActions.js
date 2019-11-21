@@ -1,37 +1,40 @@
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
 import axios from 'axios';
 
 //REGISTER
-export const registerUser = (korisnik, history) => dispatch => {
-
-    axios.post('/api/korisnici/register', korisnik)
+export const registerUser = (user, history) => dispatch => {
+    dispatch(clearErrors());
+    axios.post('/api/users/register', user)
         .then(res => {
             history.push('/post-register');
         })
-        .catch(eror => {
+        .catch(err => {
             dispatch({
                 type: GET_ERRORS,
-                payload: eror.response.data
+                payload: err.response.data
             });
         });
 
 };
 
+export const clearErrors = () => {
+    return {
+        type: CLEAR_ERRORS
+    };
+};
+
 //LOGIN
-export const loginUser = (korisnik) => dispatch => {
-    axios.post('/api/korisnici/login', korisnik)
+export const loginUser = (user) => dispatch => {
+    dispatch(clearErrors());
+    axios.post('/api/users/login', user)
         .then(res => {
-            //Local storrage <- token
             const { token } = res.data;
             localStorage.setItem('jwtToken', token);
-            //Token -> header auth
             setAuthToken(token);
-            //decode token -> get korisnik
             const decoded = jwt_decode(token);
-            //current user
             dispatch(setCurrentUser(decoded));
         })
         .catch(eror => {

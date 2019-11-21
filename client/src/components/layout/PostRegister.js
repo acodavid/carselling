@@ -6,9 +6,9 @@ export default function PostRegister() {
         <div className="container">
             <div className="alert alert-dismissible alert-success">
                 <button type="button" className="close" data-dismiss="alert">&times;</button>
-                <strong>Uspješno ste se registrovali!</strong> Dobrodošli na našu stranicu!
+                <strong>You have successfully registered!</strong> Welcome to our site!
             </div>
-            <Link to="/login" className="btn btn-primary btn-block">Molimo prijavite se kako bi nastavili</Link>
+            <Link to="/login" className="btn btn-primary btn-block">Please log in to proceed</Link>
         </div>
 
     )

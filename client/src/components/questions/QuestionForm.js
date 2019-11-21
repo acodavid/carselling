@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { addQuestion } from '../../actions/carActions'
 
-class PitanjaForm extends Component {
+class QuestionForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tekst: '',
+            text: '',
             errors: {}
         };
 
@@ -26,16 +26,16 @@ class PitanjaForm extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const { korisnik } = this.props.auth;
+        const { profile } = this.props.profile;
         const { carId } = this.props;
 
         const newQuestion = {
-            tekst: this.state.tekst,
-            ime: korisnik.ime,
+            text: this.state.text,
+            name: profile.username,
         };
 
         this.props.addQuestion(carId, newQuestion);
-        this.setState({ tekst: '' });
+        this.setState({ text: '' });
     }
 
     onChange(e) {
@@ -45,22 +45,22 @@ class PitanjaForm extends Component {
 
     render() {
 
-        const { errors, tekst } = this.state;
+        const { errors, text } = this.state;
 
         return (
             <div className="question-form">
                 <div className="container">
                     <div className="card card-primary">
                         <div className="card-header bg-secondary text-white">
-                            Pitanja i odgovori
+                            Questions and answers:
                 </div>
                         <div className="card-body">
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
-                                    <textarea className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.tekst })} name="tekst" id="tekst" cols="30" rows="2" onChange={this.onChange} value={tekst} placeholder="Unesite tekst"></textarea>
-                                    {errors.tekst && (<div className="invalid-feedback">{errors.tekst}</div>)}
+                                    <textarea className={classnames('form-control form-control-lg mb-1', { 'is-invalid': errors.text })} name="text" id="text" cols="30" rows="2" onChange={this.onChange} value={text} placeholder="Unesite text"></textarea>
+                                    {errors.text && (<div className="invalid-feedback">{errors.text}</div>)}
                                 </div>
-                                <button type="submit" className="btn btn-primary">Postavi</button>
+                                <button type="submit" className="btn btn-primary">Add</button>
                             </form>
                         </div>
                     </div>
@@ -70,16 +70,16 @@ class PitanjaForm extends Component {
     }
 }
 
-PitanjaForm.propTypes = {
+QuestionForm.propTypes = {
     addQuestion: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
     carId: PropTypes.string.isRequired,
     errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authorization,
+    profile: state.profile,
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { addQuestion })(PitanjaForm); 
+export default connect(mapStateToProps, { addQuestion })(QuestionForm); 

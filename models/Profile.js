@@ -1,26 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Kreiranje seme
-const ProfilSchema = new Schema({
-    korisnik: {
+const ProfileSchema = new Schema({
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'korisnici'
+        ref: 'users'
     },
-    korisnickoIme: {
+    username: {
         type: String,
         required: true,
         max: 25
     },
-    brojTelefona: {
+    phoneNumber: {
         type: String,
         required: true
     },
-    adresa: {
+    address: {
         type: String,
         required: true
     },
-    linkovi: {
+    links: {
         facebook: {
             type: String
         },
@@ -33,4 +32,4 @@ const ProfilSchema = new Schema({
     }
 });
 
-module.exports = Profil = mongoose.model('profil', ProfilSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);

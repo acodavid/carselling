@@ -19,12 +19,12 @@ class Landing extends Component {
                         <div className="row">
                             <div className="col-md-12 text-center">
 
-                                <h1 className="display-3 text-info mb-4">Auto oglasi</h1>
-                                <p className="lead text-info"> Prodaja i kupovina automobila</p>
+                                <h1 className="display-3 text-info mb-4">Car selling</h1>
+                                <p className="lead text-info"> Buy a new car / sell your car </p>
 
                                 <hr />
-                                <Link to="/register" className="btn btn-lg btn-primary mr-3">Registracija</Link>
-                                <Link to="/login" className="btn btn-lg btn-primary">Prijava</Link>
+                                <Link to="/register" className="btn btn-lg btn-primary mr-3">Registration</Link>
+                                <Link to="/login" className="btn btn-lg btn-primary">Login</Link>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ Landing.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authorization
+    auth: state.auth
 });
 
 export default connect(mapStateToProps)(Landing);
